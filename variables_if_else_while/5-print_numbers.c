@@ -12,6 +12,7 @@ int main(void)
 	while (numbs <= 9)
 	{
 		putchar('0' + numbs);
+		numbs++;
 	};
 
 	putchar('\n');
