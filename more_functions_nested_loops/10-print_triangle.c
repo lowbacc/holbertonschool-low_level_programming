@@ -12,8 +12,11 @@ void print_triangle(int size)
 	for (i = 1; i <= size; ++i)
 	{
 		j = size - i;
-		for (j = 0; j > 0; --j)
+		while (j > 0)
+		{
 			_putchar(' ');
+			j--;
+		}
 		for (j = i; j > 0; --j)
 			_putchar('#');
 		if (i != size)
