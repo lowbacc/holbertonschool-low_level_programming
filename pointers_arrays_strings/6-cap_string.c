@@ -37,7 +37,7 @@ char *cap_string(char *s)
 		}
 		else if ((s[i] >= 'A') && (s[i] <= 'Z') && (nextLetterCap == 1))
 			nextLetterCap = 0;
-		else if ((s[i] == ' ') || (s[i] == '	') || (s[i] == '\n') || (s[i] == ','))
+		else if ((s[i] == ' ') || (s[i] == '\t') || (s[i] == '\n') || (s[i] == ','))
 			nextLetterCap = 1;
 		else if ((s[i] == '.') || (s[i] == '!') || (s[i] == '?') || (s[i] == '"'))
 			nextLetterCap = 1;
