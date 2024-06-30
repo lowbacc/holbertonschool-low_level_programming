@@ -11,10 +11,16 @@ char *cap_string(char *s)
 {
 	int i, j;
 
-	for (i = 0, j = 0; s[i] != '\0'; i++)
+	for (i = 0, j = 0; s[i] != '\0'; i++, j++)
 	{
-		if (s[i] != 9)
-			s[j++] = s[i];
+		if (s[i] == 9)
+		{
+			s[j] = ' ';
+		}
+		else
+		{
+			s[j] = s[i];
+		}
 	}
 	s[j] = '\0';
 
@@ -22,23 +28,11 @@ char *cap_string(char *s)
 		{
 		if (s[i] >= 97 && s[i] <= 122)
 			{
-			if (s[i - 1] >= 65 && s[i - 1] <= 90)
+			if (i == 0 || s[i - 1] == ' ')
 				{
-				continue;
-				}
-			else if (s[i - 1] >= 97 && s[i - 1] <= 122)
-				{
-				continue;
-				}
-			else if ((s[i - 1] >= 48 && s[i - 1] <= 57) || s[i - 1] == '-')
-				{
-				continue;
-				}
-			else
-				{
-				s[i] = s[i] - 32;
+					s[i] -= 32;
 				}
 			}
 		}
-		return (s);
+	return (s);
 }
