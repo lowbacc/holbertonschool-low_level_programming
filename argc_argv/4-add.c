@@ -13,8 +13,7 @@ int main(int argc, char *argv[])
 
 	for (i = 1; i < argc; i++)
 	{
-		printf("%s\n", argv[i]);
-		 somme += *argv[i];
+		 somme += *argv[i] - '0';
 	}
 	printf("%d\n", somme);
 	return (somme);
