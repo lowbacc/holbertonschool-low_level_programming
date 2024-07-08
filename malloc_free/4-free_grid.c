@@ -2,7 +2,7 @@
 #include <stdlib.h>
 
 /**
- * free_greed - Entry point
+ * free_grid - Entry point
  * @grid: array
  * @height: the heught of grid
  * Return: Always 0.
