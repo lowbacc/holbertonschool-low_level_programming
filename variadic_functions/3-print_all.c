@@ -3,19 +3,27 @@
 #include <stdarg.h>
 
 /**
- * struct fmt - Entry point
- * @type: format (char)
- * @f: function
+ * print_char - Entry point
+ * @args: arguments
  */
-typedef struct fmt
-{
-	char type;
-	void (*f)(va_list);
-} fmt_t;
-
 void print_char(va_list args) { printf("%c", va_arg(args, int)); }
+
+/**
+ * print_int - Entry point
+ * @args: arguments
+ */
 void print_int(va_list args) { printf("%d", va_arg(args, int)); }
+
+/**
+ * print_float - Entry point
+ * @args: arguments
+ */
 void print_float(va_list args) { printf("%f", va_arg(args, double)); }
+
+/**
+ * print_string - Entry point
+ * @args: arguments
+ */
 void print_string(va_list args)
 {
 	char *str = va_arg(args, char *);
