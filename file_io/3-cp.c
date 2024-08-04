@@ -4,10 +4,10 @@
 #include <unistd.h>
 
 /**
- * close_fd - Close file descriptor
+ * close_status - Closes a file descriptor
  * @fd: File descriptor
  */
-void close_fd(int fd)
+void close_status(int fd)
 {
 	if (close(fd) == -1)
 	{
@@ -17,16 +17,32 @@ void close_fd(int fd)
 }
 
 /**
- * main - Copy file content
+ * write_buffer - Writes buffer content to a file descriptor
+ * @dest: File descriptor
+ * @buffer: Buffer
+ * @size: Number of bytes
+ * @filename: Name of the file being written to
+ */
+void write_buffer(int dest, char *buffer, ssize_t size, const char *filename)
+{
+	if (write(dest, buffer, size) == -1)
+	{
+		dprintf(STDERR_FILENO, "Error: Can't write to %s\n", filename);
+		exit(99);
+	}
+}
+
+/**
+ * main - Copies content from one file to another
  * @argc: Argument count
  * @argv: Argument vector
- * Return: 0 on success, or exit with an error
+ * Return: 0 on success, or exits with an error
  */
 int main(int argc, char *argv[])
 {
 	int src, dest;
-	ssize_t bytesRead;
 	char buffer[1024];
+	ssize_t size;
 
 	if (argc != 3)
 	{
@@ -45,27 +61,24 @@ int main(int argc, char *argv[])
 	if (dest == -1)
 	{
 		dprintf(STDERR_FILENO, "Error: Can't write to %s\n", argv[2]);
-		close_fd(src);
+		close_status(src);
 		exit(99);
 	}
 
-	while ((bytesRead = read(src, buffer, sizeof(buffer))) > 0)
+	while ((size = read(src, buffer, sizeof(buffer))) > 0)
 	{
-		if (write(dest, buffer, bytesRead) != bytesRead)
-		{
-			dprintf(STDERR_FILENO, "Error: Can't write to %s\n", argv[2]);
-			close_fd(src);
-			close_fd(dest);
-			exit(99);
-		}
+		write_buffer(dest, buffer, size, argv[2]);
 	}
 
-	if (bytesRead == -1)
+	if (size == -1)
 	{
 		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", argv[1]);
+		close_status(src);
+		close_status(dest);
+		exit(98);
 	}
 
-	close_fd(src);
-	close_fd(dest);
+	close_status(src);
+	close_status(dest);
 	return (0);
 }
